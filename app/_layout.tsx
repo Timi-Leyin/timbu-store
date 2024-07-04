@@ -7,7 +7,7 @@ import { useFonts } from "expo-font";
 import { Slot, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import "react-native-reanimated";
+// import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { View } from "react-native";
@@ -20,6 +20,8 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    PlusJakartaBold: require("../assets/fonts/plus-jakarta-sans/PlusJakartaSans-Bold.ttf"),
+    PlusJakarta: require("../assets/fonts/plus-jakarta-sans/PlusJakartaSans-Regular.ttf"),
   });
 
   useEffect(() => {
@@ -34,11 +36,9 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <View>
-        <SafeAreaProvider>
-          <Slot />
-        </SafeAreaProvider>
-      </View>
+      <SafeAreaProvider>
+        <Slot />
+      </SafeAreaProvider>
     </ThemeProvider>
   );
 }
