@@ -1,10 +1,12 @@
-import { ImageBackground, StyleSheet, Text, View } from "react-native";
+import { ImageBackground, StyleSheet, Text, Vibration, View } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ThemedText } from "@/components/themed/themed-text";
 import { ThemedButton } from "@/components/themed/themed-button";
+import { useRouter } from "expo-router";
 
 const Home = () => {
+  const router = useRouter()
   return (
     <SafeAreaView style={styles.wrapper}>
       <ImageBackground source={require("../assets/images/onboarding-stripes.png")} style={styles.container}>
@@ -12,7 +14,11 @@ const Home = () => {
           <ThemedText style={styles.infoBoxHeading} type="title">
             Your Fashion Companion for All Things Trendy
           </ThemedText>
-          <ThemedButton>Continue</ThemedButton>
+          <ThemedButton onPress={()=>{
+            Vibration.vibrate(70);
+            router.push("/home")
+
+          }}>Continue</ThemedButton>
         </View>
       </ImageBackground>
     </SafeAreaView>
