@@ -1,30 +1,39 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
-import ProductPlaceholder from "@/components/loading-placeholders/product-placeholder";
+import React, { Fragment } from "react";
+import { ProductsPlaceholder } from "@/components/loading-placeholders/product-placeholder";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useProducts } from "@/context/products-context";
+import { ENV } from "@/constants/env";
+import { ThemedText } from "@/components/themed/themed-text";
+import ProductCard from "@/components/product/product-card";
 
 const Home = () => {
+  const { data: productsData, loading } = useProducts();
   return (
-    <SafeAreaView
-      style={{
-        // flex: 1,
-      }}
-    >
-     
-   <ScrollView>
-   {/* {
-      Array(4).fill(4).map((_,index)=>  <ProductPlaceholder key={index} />)
-     } */}
-     
-     <ProductPlaceholder />
-     <ProductPlaceholder />
-     <ProductPlaceholder />
-     <ProductPlaceholder />
-   </ScrollView>
+    <SafeAreaView style={
+        styles.wrapper
+      }>
+      <ScrollView >
+        {loading && !productsData && <ProductsPlaceholder length={3} />}
+        {!loading && productsData && (
+          <Fragment>
+            <ThemedText type="title">
+              {productsData.items.length} Products
+            </ThemedText>
+            {productsData.items.map((product, index) => {
+              return <ProductCard product={product} key={product.id || index} />;
+            })}
+          </Fragment>
+        )}
+      </ScrollView>
     </SafeAreaView>
   );
 };
 
 export default Home;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  wrapper:{
+    marginHorizontal:15
+  }
+});

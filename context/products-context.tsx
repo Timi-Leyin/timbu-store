@@ -1,29 +1,36 @@
 import { GET_PRODUCTS } from "@/api/products";
 import { useFetch } from "@/hooks/use-fetch";
-import { ReactNode, createContext, useEffect } from "react";
+import { GetProductsResponse, ProductContext } from "@/interfaces/products";
+import { ReactNode, createContext, useContext, useEffect } from "react";
 import { Text } from "react-native";
 
-export interface ProductContext {
-  loading: boolean;
-}
-
-const productContext = createContext<ProductContext>({
+export const productContext = createContext<ProductContext>({
   loading: true,
+  data: null,
 });
 
 export const ProductsProvider = ({ children }: { children: ReactNode }) => {
-  const { loading, data, error, fetchData } = useFetch(GET_PRODUCTS);
-
+  const { loading, data, error, fetchData } = useFetch<
+    any,
+    GetProductsResponse
+  >(GET_PRODUCTS);
   useEffect(() => {
-    fetchData();
-  },[]);
+    fetchData({
+      reverse_sort: false,
+      page: 1,
+      size: 10,
+    });
+  }, []);
   return (
     <productContext.Provider
       value={{
         loading,
+        data,
       }}
     >
       {children}
     </productContext.Provider>
   );
 };
+
+export const useProducts = () => useContext(productContext);

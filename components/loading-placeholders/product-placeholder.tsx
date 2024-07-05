@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { Fragment } from "react";
 import {
   Fade,
   ShineOverlay,
@@ -13,12 +13,12 @@ const ProductPlaceholder = () => {
   return (
     <View
       style={{
-        marginHorizontal: 20,
+        // marginHorizontal: 20,
       }}
     >
       <Placeholder
         style={{
-        //   height: "100%",
+          //   height: "100%",
 
           width: "100%",
         }}
@@ -64,6 +64,16 @@ const ProductPlaceholder = () => {
   );
 };
 
-export default ProductPlaceholder;
+const ProductsPlaceholder = ({ length = 4 }) => {
+  return (
+    <Fragment>
+      {Array(length)
+        .fill(4)
+        .map((_, index) => (
+          <ProductPlaceholder key={index} />
+        ))}
+    </Fragment>
+  );
+};
 
-const styles = StyleSheet.create({});
+export { ProductsPlaceholder, ProductPlaceholder };

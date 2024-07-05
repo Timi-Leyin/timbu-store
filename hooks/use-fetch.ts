@@ -8,7 +8,7 @@ export interface ResponseT {
 
 export const useFetch = <Args = any, Res = ResponseT>(fetcher: any) => {
   const [data, setData] = useState<Res>(null!);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null!);
   const [loading, setLoading] = useState(false);
 
   const fetchData = async (args?: Args) => {
@@ -20,8 +20,7 @@ export const useFetch = <Args = any, Res = ResponseT>(fetcher: any) => {
       setData(response.data);
       return response.data;
     } catch (error: any) {
-      const { response } = error;
-      setError(response ? response.data.msg : "Check Your Internet Connection");
+      setError("Check Your Internet Connection");
       setData(null!);
     } finally {
       setLoading(false);
