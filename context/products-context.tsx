@@ -24,7 +24,6 @@ export const ProductsProvider = ({ children }: { children: ReactNode }) => {
       }}
     >
       {children}
-      {/* {loading?<Text>Loading...</Text>:<Text>Loaded</Text>} */}
     </productContext.Provider>
   );
 };
