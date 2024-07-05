@@ -4,10 +4,9 @@ export interface GetProducts {
   size?: number;
 }
 
-
-export interface Price{
-    // {
-    [key:string]: number[];
+export interface Price {
+  // {
+  [key: string]: number[];
   // }
 }
 

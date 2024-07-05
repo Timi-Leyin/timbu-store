@@ -7,14 +7,19 @@ import { Add, Minus } from "iconsax-react-native";
 import { FONTS } from "@/constants/fonts";
 import { Colors, primaryColor } from "@/constants/colors";
 
-const ProductCartQ = () => {
+interface ProductQTY {
+  quantity: number;
+  increase: () => void;
+  decrease: () => void;
+}
+
+const ProductCartQ = ({ quantity = 0, increase, decrease }: ProductQTY) => {
   const COLOR = "#FFF";
-  let [counter, setCounter] = useState(0)
   return (
     <View style={styles.wrapper}>
-      <Minus onPress={()=> setCounter(counter<=0?0:counter-=1)} style={styles.icon} color={COLOR} />
-      <Text style={styles.counter}>{counter}</Text>
-      <Add onPress={()=> setCounter(counter++)} style={styles.icon} color={COLOR} />
+      <Minus onPress={decrease} style={styles.icon} color={COLOR} />
+      <Text style={styles.counter}>{quantity}</Text>
+      <Add onPress={increase} style={styles.icon} color={COLOR} />
     </View>
   );
 };
@@ -41,7 +46,7 @@ const styles = StyleSheet.create({
   },
   counter: {
     fontSize: 20,
-    color:"#FFF",
+    color: "#FFF",
     // flex: 1,
     fontFamily: FONTS.Arvo.Bold,
   },

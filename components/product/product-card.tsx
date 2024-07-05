@@ -11,8 +11,20 @@ import { Colors } from "@/constants/colors";
 import ProductCartQ from "./product-cart-q";
 import truncateText from "@/utils/truncate-text";
 import formatMoney from "@/utils/format-money";
+import { useCart } from "@/context/cart-context";
 
 const ProductCard = ({ product }: { product: Products }) => {
+  const { cart, addToCart, removeFromCart, getProductFromCart } = useCart();
+
+  const productInCart = getProductFromCart(product.id);
+  const addToCartHandler = () => {
+    addToCart(product);
+  };
+
+  const removeFromCartHandler = () => {
+    removeFromCart(product.id);
+  };
+
   const thumbnail = product.photos[0];
   const theme = useColorScheme() ?? "light";
   const secondaryBtnBg = Colors[theme].tint;
@@ -29,6 +41,8 @@ const ProductCard = ({ product }: { product: Products }) => {
   const imgSrc = thumbnail
     ? { uri: getProductImage(thumbnail.url) }
     : fallbackThumbnail;
+
+    // console.log(productInCart)
   return (
     <View>
       <Image
@@ -82,12 +96,15 @@ const ProductCard = ({ product }: { product: Products }) => {
 
       <View style={styles.actions}>
         <ThemedButton style={{ flex: 1, backgroundColor: secondaryBtnBg }}>
-          Buy Now
+          View Details
         </ThemedButton>
-        {/* <ProductCartQ /> */}
-        <ThemedButton>
-          <ShoppingCart color="#fff" />
-        </ThemedButton>
+        {productInCart ? (
+          <ProductCartQ increase={addToCartHandler} decrease={removeFromCartHandler} quantity={productInCart.quantity} />
+        ) : (
+          <ThemedButton onPress={addToCartHandler}>
+            <ShoppingCart color="#fff" />
+          </ThemedButton>
+        )}
       </View>
     </View>
   );
