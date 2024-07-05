@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     marginTop:"auto",
     flexDirection: "row",
+    backgroundColor:"white",
     gap: 20,
     borderTopColor:"rgba(0,0,0,0.05)",
     borderTopWidth:1,
