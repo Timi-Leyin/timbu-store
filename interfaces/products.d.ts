@@ -5,9 +5,7 @@ export interface GetProducts {
 }
 
 export interface Price {
-  // {
   [key: string]: number[];
-  // }
 }
 
 export interface ProductContext {
