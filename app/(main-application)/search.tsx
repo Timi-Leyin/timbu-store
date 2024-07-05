@@ -1,14 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import IsEmpty from "@/components/common/is-empty";
 
 const Search = () => {
-  return (
-    <View>
-      <Text>Search</Text>
-    </View>
-  )
-}
+  return <IsEmpty>Nothing to see here 👀</IsEmpty>;
+};
 
-export default Search
+export default Search;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});
