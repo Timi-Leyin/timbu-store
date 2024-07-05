@@ -22,6 +22,8 @@ export default function RootLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
     PlusJakartaBold: require("../assets/fonts/plus-jakarta-sans/PlusJakartaSans-Bold.ttf"),
     PlusJakarta: require("../assets/fonts/plus-jakarta-sans/PlusJakartaSans-Regular.ttf"),
+    ArvoBold: require("../assets/fonts/arvo/Arvo-Bold.ttf"),
+    ArvoRegular: require("../assets/fonts/arvo/Arvo-Regular.ttf"),
   });
 
   useEffect(() => {
