@@ -10,10 +10,8 @@ import ProductCard from "@/components/product/product-card";
 const Home = () => {
   const { data: productsData, loading } = useProducts();
   return (
-    <SafeAreaView style={
-        styles.wrapper
-      }>
-      <ScrollView >
+    <SafeAreaView style={styles.wrapper}>
+      <ScrollView>
         {loading && !productsData && <ProductsPlaceholder length={3} />}
         {!loading && productsData && (
           <Fragment>
@@ -21,10 +19,18 @@ const Home = () => {
               {productsData.items.length} Products
             </ThemedText>
             {productsData.items.map((product, index) => {
-              return <ProductCard product={product} key={product.id || index} />;
+              return (
+                <ProductCard product={product} key={product.id || index} />
+              );
             })}
           </Fragment>
         )}
+        <View
+          style={{
+            height: 90,
+            marginTop: "auto",
+          }}
+        />
       </ScrollView>
     </SafeAreaView>
   );
@@ -33,7 +39,7 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
-  wrapper:{
-    marginHorizontal:15
-  }
+  wrapper: {
+    marginHorizontal: 15,
+  },
 });
