@@ -12,10 +12,11 @@ import ProductCartQ from "./product-cart-q";
 import truncateText from "@/utils/truncate-text";
 import formatMoney from "@/utils/format-money";
 import { useCart } from "@/context/cart-context";
+import { useRouter } from "expo-router";
 
 const ProductCard = ({ product }: { product: Products }) => {
   const { cart, addToCart, removeFromCart, getProductFromCart } = useCart();
-
+  const router = useRouter();
   const productInCart = getProductFromCart(product.id);
   const addToCartHandler = () => {
     addToCart(product);
@@ -42,12 +43,13 @@ const ProductCard = ({ product }: { product: Products }) => {
     ? { uri: getProductImage(thumbnail.url) }
     : fallbackThumbnail;
 
-    // console.log(productInCart)
+  // console.log(productInCart)
   return (
     <View>
       <Image
         style={{
           width: "100%",
+          backgroundColor:"#eee",
           height: 200,
           objectFit: "cover",
         }}
@@ -63,10 +65,10 @@ const ProductCard = ({ product }: { product: Products }) => {
             {product.name}
           </ThemedText>
           <ThemedText type="default">
-            {truncateText(product.description || "") || "N/A"}
+            {truncateText(product.description || "") || ""}
           </ThemedText>
           <ThemedText type="title" style={[styles.styledText, styles.discount]}>
-            {discountedPrice && (
+            {price && discountedPrice && (
               <Fragment>
                 {currency} {formatMoney(discountedPrice)}
               </Fragment>
@@ -82,6 +84,11 @@ const ProductCard = ({ product }: { product: Products }) => {
               {currency} {formatMoney(price)}
             </ThemedText>
           )}
+          {!price && discountedPrice &&  (
+            <ThemedText type="title" style={[styles.styledText, styles.price]}>
+              {currency} {formatMoney(discountedPrice)}
+            </ThemedText>
+          )}
 
           {!price && !discountedPrice && (
             <ThemedText
@@ -95,11 +102,20 @@ const ProductCard = ({ product }: { product: Products }) => {
       </View>
 
       <View style={styles.actions}>
-        <ThemedButton style={{ flex: 1, backgroundColor: secondaryBtnBg }}>
+        <ThemedButton
+          onPress={() => {
+            router.navigate(`/product/${product.id}`);
+          }}
+          style={{ flex: 1, backgroundColor: secondaryBtnBg }}
+        >
           View Details
         </ThemedButton>
         {productInCart ? (
-          <ProductCartQ increase={addToCartHandler} decrease={removeFromCartHandler} quantity={productInCart.quantity} />
+          <ProductCartQ
+            increase={addToCartHandler}
+            decrease={removeFromCartHandler}
+            quantity={productInCart.quantity}
+          />
         ) : (
           <ThemedButton onPress={addToCartHandler}>
             <ShoppingCart color="#fff" />
@@ -115,7 +131,7 @@ export default ProductCard;
 const styles = StyleSheet.create({
   styledText: {
     fontFamily: FONTS.Arvo.Regular,
-    fontSize: 30,
+    fontSize: 23,
   },
   price: {
     fontSize: 20,
