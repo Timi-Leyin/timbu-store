@@ -1,5 +1,6 @@
 import { ThemedText } from '@/components/themed/themed-text';
 import { ThemedView } from '@/components/themed/themed-view';
+import { FONTS } from '@/constants/fonts';
 import { Link, Stack } from 'expo-router';
 import { StyleSheet } from 'react-native';
 
@@ -8,7 +9,10 @@ export default function NotFoundScreen() {
     <>
       <Stack.Screen options={{ title: 'Oops!' }} />
       <ThemedView style={styles.container}>
-        <ThemedText type="title">This screen doesn't exist.</ThemedText>
+        <ThemedText style={{
+          textAlign:"center",
+          fontFamily:FONTS.Arvo.Regular
+        }} type="title">This screen doesn't exist.</ThemedText>
         <Link href="/" style={styles.link}>
           <ThemedText type="link">Go to home screen!</ThemedText>
         </Link>
