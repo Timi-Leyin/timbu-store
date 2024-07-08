@@ -4,6 +4,7 @@ import {
   Scan as ScanIcon,
   Clock as HistoryIcon,
   User as ProfileIcon,
+  ShoppingCart,
 } from "iconsax-react-native";
 export default [
   {
@@ -19,9 +20,9 @@ export default [
     middle: false,
   },
   {
-    name: "Scanner",
-    icon: ScanIcon,
-    href: "/scan",
+    name: "Cart",
+    icon: ShoppingCart,
+    href: "/carts",
     middle: true,
   },
   {

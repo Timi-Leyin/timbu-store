@@ -19,14 +19,14 @@ const TopBar = () => {
       <View style={styles.action}>
         <TouchableOpacity
           onPress={() => {
-            router.navigate("/favourites");
+            // router.navigate("/favourites");
           }}
         >
           <Heart color={shadeColor} />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            router.navigate("/notifications");
+            // router.navigate("/notifications");
           }}
         >
           <Notification color={shadeColor} />

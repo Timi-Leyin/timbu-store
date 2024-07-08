@@ -1,5 +1,5 @@
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { useGlobalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import InDeptTopBar from "@/components/navigation/in-dept-top-bar";
@@ -8,48 +8,92 @@ import { FONTS } from "@/constants/fonts";
 import { ThemedButton } from "@/components/themed/themed-button";
 import { ShoppingCart } from "iconsax-react-native";
 import ProductImageGallery from "@/components/product/product-image-gallery";
+import { useFetch } from "@/hooks/use-fetch";
+import { GET_PRODUCT } from "@/api/products";
+import formatMoney from "@/utils/format-money";
+import ProductCartQ from "@/components/product/product-cart-q";
+import { useCart } from "@/context/cart-context";
+import { ProductPlaceholder } from "@/components/loading-placeholders/product-placeholder";
 
 const ProductDetailScreen = () => {
   const { id: productId } = useGlobalSearchParams();
-  console.log(productId);
+  const { cart, addToCart, removeFromCart, getProductFromCart } = useCart();
+  const { data, error, fetchData, loading } = useFetch(GET_PRODUCT);
+
+  useEffect(() => {
+    fetchData({ productId });
+  }, []);
+
+  const productInCart = data && getProductFromCart(data.id);
+  const addToCartHandler = () => {
+    addToCart(data);
+  };
+
+  const removeFromCartHandler = () => {
+    removeFromCart(data.id);
+  };
+
   return (
-    <SafeAreaView
-      style={{
-        padding: 20,
-      }}
-    >
-      <InDeptTopBar />
-      <ScrollView
-        style={{
-          marginTop: 15,
-        }}
-      >
-        <ProductImageGallery />
-        <View style={{ marginVertical: 20 }}>
-          <ThemedText type="title" style={styles.productName}>
-            Bluettoth Headst Toolkit
-          </ThemedText>
-          <ThemedText type="title" style={[styles.styledText, styles.price]}>
-            NGN 50,000
-          </ThemedText>
-          <ThemedText type="default" style={styles.desc}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
-            expedita dignissimos quisquam quam illo, fuga ipsum assumenda
-            aliquid reprehenderit recusandae! Quibusdam culpa autem illum
-            facilis?
-          </ThemedText>
-          <ThemedButton>
-            <ShoppingCart color="#fff" />
-          </ThemedButton>
-        </View>
-        <View
+    <View>
+      {loading && <ProductPlaceholder />}
+
+      {!loading && data && (
+        <SafeAreaView
           style={{
-            height: 90,
-            marginTop: "auto",
+            padding: 20,
           }}
-        />
-      </ScrollView>
-    </SafeAreaView>
+        >
+          <InDeptTopBar />
+          <ScrollView
+            style={{
+              marginTop: 15,
+            }}
+          >
+            <ProductImageGallery product={data} />
+            <View style={{ marginVertical: 20 }}>
+              <ThemedText type="title" style={styles.productName}>
+                {data.name}
+              </ThemedText>
+              {data.available_quantity && (
+                <ThemedText
+                  type="title"
+                  style={[styles.styledText, styles.price]}
+                >
+                  NGN {formatMoney(data.available_quantity)}
+                </ThemedText>
+              )}
+              <ThemedText type="default" style={styles.desc}>
+                {data.description}
+              </ThemedText>
+
+              <View
+                style={{
+                  marginVertical: 10,
+                }}
+              >
+                {productInCart ? (
+                  <ProductCartQ
+                    increase={addToCartHandler}
+                    decrease={removeFromCartHandler}
+                    quantity={productInCart.quantity}
+                  />
+                ) : (
+                  <ThemedButton onPress={addToCartHandler}>
+                    <ShoppingCart color="#fff" />
+                  </ThemedButton>
+                )}
+              </View>
+            </View>
+            <View
+              style={{
+                height: 100,
+                marginTop: "auto",
+              }}
+            />
+          </ScrollView>
+        </SafeAreaView>
+      )}
+    </View>
   );
 };
 

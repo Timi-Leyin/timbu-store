@@ -1,3 +1,7 @@
+export interface GetProduct {
+  productId: string;
+}
+
 export interface GetProducts {
   reverse_sort?: boolean;
   page?: number;
@@ -52,7 +56,7 @@ export interface Products {
   stocks: unknown;
   current_price: Price[];
   is_deleted: boolean;
-  available_quantity: unknown;
+  available_quantity: any;
   selling_price: unknown;
   discounted_price: unknown;
   buying_price: unknown;

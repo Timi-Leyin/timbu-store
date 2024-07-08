@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { AxiosError } from "axios";
 
-export interface ResponseT {
-  msg: string;
-  data?: unknown;
-}
-
-export const useFetch = <Args = any, Res = ResponseT>(fetcher: any) => {
+export const useFetch = <Args = any, Res = any>(fetcher: any) => {
   const [data, setData] = useState<Res>(null!);
   const [error, setError] = useState<string | null>(null!);
   const [loading, setLoading] = useState(false);

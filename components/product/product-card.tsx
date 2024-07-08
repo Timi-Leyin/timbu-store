@@ -31,17 +31,19 @@ const ProductCard = ({ product }: { product: Products }) => {
   const secondaryBtnBg = Colors[theme].tint;
   const fallbackThumbnail = require("../../assets/images/placeholder.png");
   // const imgSrc = fallbackThumbnail;
-  const checkCurrentPriceContent =
-    Object.keys(product.current_price[0]).length >= 1 &&
-    Boolean(product.current_price[0][Object.keys(product.current_price[0])[0]]);
-  const currentPrice = checkCurrentPriceContent && product.current_price[0];
-  const currency = Object.keys(currentPrice)[0] || "NGN";
-  const discountedPrice =
-    currentPrice && currentPrice[Object.keys(currentPrice)[0]][0];
-  const price = currentPrice && currentPrice[Object.keys(currentPrice)[0]][1];
+  // const checkCurrentPriceContent =
+  //   Object.keys(product.current_price[0]).length >= 1 &&
+  //   Boolean(product.current_price[0][Object.keys(product.current_price[0])[0]]);
+  // const currentPrice = checkCurrentPriceContent && product.current_price[0];
+  // const currency = Object.keys(currentPrice)[0] || "NGN";
+  // const discountedPrice =
+  //   currentPrice && currentPrice[Object.keys(currentPrice)[0]][0];
+  // const price = currentPrice && currentPrice[Object.keys(currentPrice)[0]][1];
   const imgSrc = thumbnail
     ? { uri: getProductImage(thumbnail.url) }
     : fallbackThumbnail;
+
+  const actualPrice = product.available_quantity;
 
   // console.log(productInCart)
   return (
@@ -49,7 +51,7 @@ const ProductCard = ({ product }: { product: Products }) => {
       <Image
         style={{
           width: "100%",
-          backgroundColor:"#eee",
+          backgroundColor: "#eee",
           height: 200,
           objectFit: "cover",
         }}
@@ -68,29 +70,30 @@ const ProductCard = ({ product }: { product: Products }) => {
             {truncateText(product.description || "") || ""}
           </ThemedText>
           <ThemedText type="title" style={[styles.styledText, styles.discount]}>
-            {price && discountedPrice && (
+            {/* {price && discountedPrice && (
               <Fragment>
                 {currency} {formatMoney(discountedPrice)}
               </Fragment>
-            )}
+            )} */}
             {/* <ThemedText
               style={[styles.styledText, styles.discount, styles.badge]}
             >
               -10%
             </ThemedText> */}
           </ThemedText>
-          {price && (
+          {/* {price && (
             <ThemedText type="title" style={[styles.styledText, styles.price]}>
               {currency} {formatMoney(price)}
             </ThemedText>
           )}
-          {!price && discountedPrice &&  (
+          */}
+          {actualPrice && (
             <ThemedText type="title" style={[styles.styledText, styles.price]}>
-              {currency} {formatMoney(discountedPrice)}
+              NGN {formatMoney(actualPrice)}
             </ThemedText>
           )}
 
-          {!price && !discountedPrice && (
+          {!actualPrice && (
             <ThemedText
               type="title"
               style={[{ color: "red" }, styles.styledText, styles.price]}
