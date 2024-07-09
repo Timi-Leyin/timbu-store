@@ -10,7 +10,8 @@ A React Native application for shopping that allows users to browse products, ad
 - [Screenshots](#screenshots)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Download](https://expo.dev/artifacts/eas/nF7LFZdkSV5bKKjTwvqhti.apk)
+- [Download](https://expo.dev/artifacts/eas/aHejU9ytiDdFNATiPGpCHL.apk)
+- [Appetize](https://appetize.io/embed/b_e2dkcfyigy4d4reyisqdjk3pum)
 - [License](#license)
 
 ## Features
@@ -22,19 +23,17 @@ A React Native application for shopping that allows users to browse products, ad
 
 ## Screenshots
 
-### Products Screen
+![Screen](./assets/screenshot/1.png)
 
-![Get Started Screen](./assets/screenshot/1.png)
+![Screen](./assets/screenshot/2.jpg)
 
-![Products Screen](./assets/screenshot/2.png)
+![Screen](./assets/screenshot/3.png)
 
-### Cart Screen
-
-![Cart Screen](./assets/screenshot/2.png)
-
-### Checkout Screen
-
-![Checkout Screen](./assets/screenshot/3.png)
+![Screen](./assets/screenshot/4.png)
+![Screen](./assets/screenshot/5.jpg)
+![Screen](./assets/screenshot/6.jpg)
+![Screen](./assets/screenshot/7.jpg)
+![Screen](./assets/screenshot/9.jpg)
 
 ## Installation
 
