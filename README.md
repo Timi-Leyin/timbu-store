@@ -49,7 +49,7 @@ A React Native application for shopping that allows users to browse products, ad
 1. **Clone the repository**
 
 ```bash
-git clone https://github.com/Timi-Leyin/cr-store.git
+git clone https://github.com/Timi-Leyin/store-mobile.git
 cd store-mobile
 yarn install
 yarn start
